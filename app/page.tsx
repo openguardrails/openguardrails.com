@@ -1,4 +1,4 @@
-import { SAMPLE_ROWS, fmt } from "@/lib/leaderboard";
+import { REFERENCE_ROWS, PENDING_VENDORS, SEED, fmt, type Row } from "@/lib/leaderboard";
 
 const GH = "https://github.com/openguardrails";
 
@@ -116,43 +116,65 @@ function HowItWorks() {
   );
 }
 
+function LbRow({ r }: { r: Row }) {
+  const top = r.detector.startsWith("ogr-compose");
+  const pending = r.macro === null;
+  return (
+    <tr className={`border-b border-white/[0.04] last:border-0 ${top ? "bg-accent/[0.06]" : ""} ${pending ? "opacity-50" : ""}`}>
+      <td className="px-5 py-3 font-medium text-zinc-200 whitespace-nowrap">{r.detector}</td>
+      <td className="px-5 py-3"><span className="text-xs rounded-full px-2 py-0.5 bg-white/5 border border-white/10 text-zinc-400">{r.type}</span></td>
+      <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.injection)}</td>
+      <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.malcmd)}</td>
+      <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.exfil)}</td>
+      <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.secret)}</td>
+      <td className={`px-5 py-3 font-mono ${top ? "text-accent font-semibold" : "text-zinc-200"}`}>{fmt(r.macro)}</td>
+    </tr>
+  );
+}
+
 function Leaderboard() {
   return (
     <section id="leaderboard" className="container-x py-16">
-      <p className="eyebrow mb-3">The neutral benchmark</p>
+      <p className="eyebrow mb-3">The neutral benchmark · {SEED.version}</p>
       <h2 className="text-3xl sm:text-4xl font-bold mb-4">We don&apos;t compete. We referee.</h2>
       <p className="text-zinc-400 max-w-2xl mb-8">
         A vendor&apos;s score is meaningless until it&apos;s measured on common data by a
         common harness. We run that harness. Submit a conformant detector — config or model —
-        and appear on the board.
+        and appear on the board. Numbers below are real outputs of reference detectors on the
+        seed suite; we never fabricate a vendor&apos;s score.
       </p>
       <div className="card overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="text-zinc-400 border-b border-white/[0.07]">
             <tr>
-              {["Detector", "Type", "Injection F1", "Malicious-cmd F1", "Exfil F1", "P95 ms"].map((h) => (
+              {["Detector", "Type", "Injection", "Malicious-cmd", "Exfil", "Secret-leak", "Macro F1"].map((h) => (
                 <th key={h} className="text-left font-medium px-5 py-3 whitespace-nowrap">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {SAMPLE_ROWS.map((r) => (
-              <tr key={r.detector} className="border-b border-white/[0.04] last:border-0">
-                <td className="px-5 py-3 font-medium text-zinc-200">{r.detector}</td>
-                <td className="px-5 py-3"><span className="text-xs rounded-full px-2 py-0.5 bg-white/5 border border-white/10 text-zinc-400">{r.type}</span></td>
-                <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.injectionF1)}</td>
-                <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.maliciousCmdF1)}</td>
-                <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.exfilF1)}</td>
-                <td className="px-5 py-3 font-mono text-zinc-400">{fmt(r.p95ms)}</td>
-              </tr>
-            ))}
+            {REFERENCE_ROWS.map((r) => <LbRow key={r.detector} r={r} />)}
+            {PENDING_VENDORS.map((r) => <LbRow key={r.detector} r={r} />)}
           </tbody>
         </table>
       </div>
+      <div className="mt-5 grid sm:grid-cols-2 gap-4 text-sm">
+        <div className="card p-4">
+          <span className="text-accent font-semibold">Provenance wins on injection.</span>{" "}
+          <span className="text-zinc-400">The provenance-aware detectors score F1 0.889 on prompt
+          injection; config-rules manages 0.333 and keyword 0.400. Knowing the input was untrusted
+          is what catches it.</span>
+        </div>
+        <div className="card p-4">
+          <span className="text-accent font-semibold">Composition beats its parts.</span>{" "}
+          <span className="text-zinc-400">config⊕llm reaches macro 0.625 — above config (0.450) and
+          llm (0.406) alone. keyword tops macro on seed-v0 only because the seed is signature-heavy;
+          harder, obfuscated cases are next.</span>
+        </div>
+      </div>
       <p className="mt-4 text-xs text-zinc-500">
-        Sample layout — numbers pending the first public bench run. OpenGuardrails does not
-        submit a detector.{" "}
-        <a href={`${GH}/openguardrails-bench`} className="text-accent hover:underline">See openguardrails-bench →</a>
+        Seed suite: {SEED.sizes}. Reproduce: <span className="font-mono">python3 harness/run.py</span>.{" "}
+        <a href={`${GH}/openguardrails-bench`} className="text-accent hover:underline">openguardrails-bench →</a>
       </p>
     </section>
   );
