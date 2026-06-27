@@ -18,8 +18,10 @@ function Header() {
   return (
     <header className="sticky top-0 z-30 backdrop-blur bg-ink/70 border-b border-white/[0.06]">
       <div className="container-x flex items-center justify-between h-16">
-        <a href="/" className="font-bold tracking-tight">
-          Open<span className="text-accent">Guardrails</span>
+        <a href="/" className="flex items-center gap-2.5 font-bold tracking-tight">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.svg" alt="OpenGuardrails" className="h-7 w-auto" />
+          <span>Open<span className="text-accent">Guardrails</span></span>
         </a>
         <nav className="hidden md:flex items-center gap-7 text-sm text-zinc-400">
           {NAV.map((n) => (
@@ -232,11 +234,21 @@ D. bash deploy.sh → sandbox sees AWS_SECRET_ACCESS_KEY ⛔ require_approval
 function Footer() {
   return (
     <footer className="border-t border-white/[0.06] mt-10 py-14">
-      <div className="container-x flex flex-col sm:flex-row justify-between gap-8">
-        <div>
-          <div className="font-bold mb-2">Open<span className="text-accent">Guardrails</span></div>
-          <p className="text-sm text-zinc-500 max-w-xs">
+      <div className="container-x flex flex-col sm:flex-row justify-between gap-10">
+        <div className="max-w-xs">
+          <div className="flex items-center gap-2.5 font-bold mb-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="OpenGuardrails" className="h-7 w-auto" />
+            <span>Open<span className="text-accent">Guardrails</span></span>
+          </div>
+          <p className="text-sm text-zinc-500 mb-4">
             The open standard for AI agent safety &amp; security.
+          </p>
+          <p className="text-sm text-zinc-500">
+            <a href="mailto:thomas@openguardrails.com" className="hover:text-white">thomas@openguardrails.com</a>
+          </p>
+          <p className="text-xs text-zinc-600 mt-1 not-italic leading-relaxed">
+            30 North Gould Street, STE R<br />Sheridan, WY 82801
           </p>
         </div>
         <div className="flex gap-12 text-sm">
@@ -254,12 +266,13 @@ function Footer() {
               <li><a className="hover:text-white" href={GH}>GitHub</a></li>
               <li><a className="hover:text-white" href="https://discord.gg/FfSXd64pGJ">Discord</a></li>
               <li><a className="hover:text-white" href="https://t.me/openguardrailscommunity">Telegram</a></li>
+              <li><a className="hover:text-white" href="mailto:thomas@openguardrails.com">Contact</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div className="container-x mt-10 pt-6 border-t border-white/[0.06] text-xs text-zinc-600">
-        © 2026 OpenGuardrails Inc. · Apache-2.0 · The protocol is neutral; the benchmark is a referee, not a contestant.
+        © 2026 OpenGuardrails Inc. · 30 North Gould Street, STE R, Sheridan, WY 82801 · Apache-2.0 · The protocol is neutral; the benchmark is a referee, not a contestant.
       </div>
     </footer>
   );
