@@ -41,7 +41,7 @@ config rule that only sees the string.
 ## guard-context
 
 Provenance and the `guard_id` propagate across altitudes out-of-band, via a
-**guard-context** string (analogous to W3C `traceparent`):
+compact **guard-context** string that rides alongside the action:
 
 ```
 01|<guard_id>|<session_id>|<flags>

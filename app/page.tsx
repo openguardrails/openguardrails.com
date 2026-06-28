@@ -5,6 +5,7 @@ const GH = "https://github.com/openguardrails";
 const NAV = [
   { label: "Docs", href: "/docs/" },
   { label: "Integrations", href: "/docs/integrations/" },
+  { label: "Blog", href: "/blog/" },
   { label: "Spec", href: `${GH}/openguardrails-spec` },
   { label: "Benchmark", href: `${GH}/openguardrails-bench` },
   { label: "GitHub", href: GH },
@@ -49,8 +50,8 @@ function Hero() {
       </h1>
       <p className="mt-6 max-w-2xl mx-auto text-lg text-zinc-400">
         One protocol for every agent, every sandbox, every LLM. One benchmark that ranks
-        every vendor. What OpenTelemetry did for observability, OpenGuardrails does for
-        agent safety &amp; security.
+        every vendor. A neutral contract that intercepts each agent action and enforces
+        one policy you own — across every agent you run.
       </p>
       <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
         <a href={`${GH}/openguardrails-spec`} className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
@@ -104,7 +105,7 @@ function HowItWorks() {
       <div className="codeblock mb-8">{FLOW}</div>
       <div className="grid md:grid-cols-3 gap-5">
         {[
-          ["Three altitudes, one decision", "Gateway (messages, MCP, skills, tools), agent hook, and sandbox (real exec/network/files) observe one action — correlated by guard_id."],
+          ["Three altitudes, one decision", "Gateway (messages, MCP, skills, tools), agent hook, and sandbox (real exec/network/files) intercept one action — correlated by guard_id."],
           ["Provenance-first", "Trust labels travel with the action, so OGR catches the dangerous combination — untrusted input → privileged action — not just bad strings."],
           ["Safety and security", "Harmful content judged at the I/O boundary; system compromise judged on actions and data flow, compilable into the sandbox."],
         ].map(([t, d]) => (

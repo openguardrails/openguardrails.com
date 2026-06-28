@@ -1,7 +1,7 @@
 export type DocLink = { label: string; href: string };
 export type DocSection = { title: string; links: DocLink[] };
 
-// OpenTelemetry-style IA: concepts first, then role-based getting-started,
+// IA: concepts first, then role-based getting-started,
 // then per-integration guides, then how-to (policy) and reference.
 export const DOC_NAV: DocSection[] = [
   {

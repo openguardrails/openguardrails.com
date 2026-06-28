@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "prompt injection",
     "MCP security",
     "guardrails benchmark",
-    "OpenTelemetry for security",
+    "agent guardrails standard",
     "LLM security",
   ],
   metadataBase: new URL("https://openguardrails.com"),
