@@ -294,8 +294,17 @@ function Integrations() {
       <h2 className="text-3xl sm:text-4xl font-bold mb-4">
         From personal assistant to multi-tenant agent
       </h2>
+      <p className="text-zinc-400 max-w-2xl mb-4">
+        <span className="text-zinc-200 font-semibold">On Claude Code?</span> Install the OGR
+        plugin and risky tool calls — <span className="font-mono">curl | bash</span>, obfuscated
+        execs, non-allowlisted egress, credential reads — are denied before they run,{" "}
+        <span className="text-zinc-200">even in bypass mode</span>.{" "}
+        <a href="/docs/integrations/claude-code/" className="text-accent font-semibold hover:underline">
+          Claude Code integration →
+        </a>
+      </p>
       <p className="text-zinc-400 max-w-2xl mb-9">
-        Run Hermes as your own assistant, or as a shared agent many tenants use. These are
+        Or run Hermes as your own assistant, or as a shared agent many tenants use. These are
         different security <span className="text-zinc-200">and</span> infrastructure problems —
         <span className="font-mono"> srt</span> for the personal laptop,
         <span className="font-mono"> OpenShell</span> for the multi-tenant gateway. OGR is how you
