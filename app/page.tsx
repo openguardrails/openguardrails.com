@@ -106,11 +106,14 @@ function DualEntry() {
             <h3 className="text-xl font-semibold">I&apos;m an agent</h3>
           </div>
           <p className="text-zinc-400 leading-relaxed mb-5">
-            You were asked to add guardrails. Self-install OGR, draft a policy, confirm it with
+            You were asked to add guardrails. Install the OGR skill, draft a policy, confirm it with
             your operator, then enforce it on yourself or the agents you orchestrate.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a href="/agent/" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition">
+            <a href="/skill/SKILL.md" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition font-mono">
+              Get the skill
+            </a>
+            <a href="/agent/" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition">
               Agent guide →
             </a>
             <a href="/llms.txt" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition font-mono">

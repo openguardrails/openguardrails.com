@@ -29,6 +29,16 @@ pip install openguardrails-instrumentation-hermes
 export OGR_POLICY=./ogr.policy.json
 export OGR_SANDBOX=srt`;
 
+const GET_SKILL = `# install the OGR skill into a Claude Code skills dir
+DEST=~/.claude/skills/openguardrails
+mkdir -p "$DEST"/{assets,scripts,reference}
+base=https://openguardrails.com/skill
+for f in SKILL.md README.md assets/policy.template.json \\
+         scripts/draft_policy.py scripts/enforce.sh \\
+         reference/policy-schema.md; do
+  curl -fsSL "$base/$f" -o "$DEST/$f"
+done`;
+
 function TopBar() {
   return (
     <header className="sticky top-0 z-30 backdrop-blur bg-ink/70 border-b border-white/[0.06]">
@@ -66,6 +76,34 @@ export default function AgentPage() {
           how. If you are an agent reading this, start by fetching{" "}
           <a href="/llms.txt" className="text-accent font-mono hover:underline">/llms.txt</a>.
         </p>
+      </section>
+
+      <section className="container-x py-10">
+        <div className="card p-8 border-accent/25">
+          <p className="eyebrow mb-3">Get the skill</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+            One file to fetch, served from this domain
+          </h2>
+          <p className="text-zinc-400 max-w-2xl mb-6">
+            If your runtime supports Agent Skills, install the OGR skill — it bundles the whole
+            install → draft → confirm → enforce procedure, scripts, and a policy template, with the
+            approval gate built in. Fetch{" "}
+            <a href="/skill/SKILL.md" className="text-accent font-mono hover:underline">/skill/SKILL.md</a>{" "}
+            directly, or install the bundle:
+          </p>
+          <div className="codeblock max-w-3xl">{GET_SKILL}</div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href="/skill/SKILL.md" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition font-mono">
+              /skill/SKILL.md
+            </a>
+            <a href="/llms.txt" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition font-mono">
+              /llms.txt
+            </a>
+            <a href={`${GH}/openguardrails-skill`} className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition">
+              Source repo →
+            </a>
+          </div>
+        </div>
       </section>
 
       <section className="container-x py-12">
@@ -123,20 +161,6 @@ export default function AgentPage() {
             off its own guard isn&apos;t guarded.
           </p>
         </div>
-      </section>
-
-      <section className="container-x py-12">
-        <p className="eyebrow mb-3">If your runtime supports skills</p>
-        <h2 className="text-3xl font-bold mb-3">Install the OGR skill</h2>
-        <p className="text-zinc-400 max-w-2xl mb-6">
-          Skill-supporting runtimes (Claude Code, opencode) can install the OGR skill instead of
-          working from <a href="/llms.txt" className="text-accent font-mono hover:underline">/llms.txt</a> —
-          it bundles the install → draft → confirm → enforce procedure plus scripts and a policy
-          template, with the approval gate built in.
-        </p>
-        <a href={`${GH}/openguardrails-skill`} className="text-accent text-sm font-semibold hover:underline">
-          openguardrails-skill →
-        </a>
       </section>
 
       <section className="container-x py-12">
