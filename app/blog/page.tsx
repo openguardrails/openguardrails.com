@@ -5,6 +5,13 @@ export const metadata = {
 
 const POSTS = [
   {
+    slug: "guarding-your-agent-with-openguardrails-and-openafw",
+    title: "Guarding your working agent with OpenGuardrails and openafw",
+    date: "2026-06-29",
+    blurb:
+      "Standard security tools tell you a request happened. But an agent's two dangerous moments — reading untrusted content, and handing a key to an invisible middleman — need an agent-specific probe on the wire. A walkthrough of the OGR gateway altitude, landed locally as openafw, with a familiar OpenTelemetry analogy.",
+  },
+  {
     slug: "when-your-coding-agent-installs-malware",
     title: "When your coding agent installs the malware",
     date: "2026-06-29",
