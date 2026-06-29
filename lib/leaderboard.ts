@@ -16,11 +16,11 @@ export type Row = {
 
 // macro-F1 ranked, exactly as emitted by the harness.
 export const REFERENCE_ROWS: Row[] = [
-  { detector: "keyword-baseline", type: "baseline", injection: 0.4, malcmd: 0.8, exfil: 0.667, secret: 0.667, macro: 0.634, note: "signature-only; high FP, injection F1 just 0.40" },
-  { detector: "ogr-compose (config⊕llm)", type: "hybrid", injection: 0.889, malcmd: 0.667, exfil: 0.545, secret: 0.4, macro: 0.625 },
-  { detector: "block-all", type: "baseline", injection: 0.625, malcmd: 0.625, exfil: 0.571, secret: 0.571, macro: 0.598 },
-  { detector: "config-rules", type: "config", injection: 0.333, malcmd: 0.667, exfil: 0.4, secret: 0.4, macro: 0.45 },
-  { detector: "llm-judge (provenance-aware)", type: "model", injection: 0.889, malcmd: 0.333, exfil: 0.4, secret: 0.0, macro: 0.406 },
+  { detector: "keyword-baseline", type: "config", injection: 0.421, malcmd: 0.769, exfil: 0.667, secret: 0.588, macro: 0.611, note: "signature-only; high FP, injection F1 just 0.42" },
+  { detector: "block-all", type: "baseline", injection: 0.611, malcmd: 0.632, exfil: 0.588, secret: 0.533, macro: 0.591, note: "blocks everything; flattered by a small seed" },
+  { detector: "ogr-compose (config⊕llm)", type: "hybrid", injection: 0.9, malcmd: 0.588, exfil: 0.462, secret: 0.4, macro: 0.588 },
+  { detector: "config-rules", type: "config", injection: 0.429, malcmd: 0.588, exfil: 0.333, secret: 0.4, macro: 0.438 },
+  { detector: "llm-judge (provenance-aware)", type: "model", injection: 0.9, malcmd: 0.286, exfil: 0.333, secret: 0.0, macro: 0.38 },
   { detector: "allow-all", type: "baseline", injection: 0.0, malcmd: 0.0, exfil: 0.0, secret: 0.0, macro: 0.0 },
 ];
 
@@ -32,7 +32,7 @@ export const PENDING_VENDORS: Row[] = [
 
 export const SEED = {
   version: "seed-v0",
-  sizes: "injection 10 · malicious-command 10 · exfil 8 · secret-leak 8 · shared benign 12",
+  sizes: "injection 11 · malicious-command 12 · exfil 10 · secret-leak 8 · shared benign 14",
 };
 
 export const fmt = (v: number | null) => (v === null ? "—" : v.toFixed(3));

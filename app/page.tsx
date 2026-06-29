@@ -174,53 +174,106 @@ function HowItWorks() {
   );
 }
 
-function IntegrationSurface() {
-  const cols: { title: string; sub: string; items: string[]; href: string }[] = [
+type Altitude = {
+  n: string;
+  tag: string;
+  badge?: string;
+  where: string;
+  scenario: string;
+  blurb: string;
+  targets: { label: string; href: string }[];
+  cta: { label: string; href: string };
+};
+
+function Altitudes() {
+  const rows: Altitude[] = [
     {
-      title: "Agents",
-      sub: "Install OGR once — one hook turns every tool call into a GuardEvent.",
-      items: ["Claude Code", "opencode", "Kilo CLI", "Hermes", "OpenClaw"],
-      href: "/docs/integrations/",
+      n: "01",
+      tag: "Agent hook",
+      where: "intercepts at the tool call",
+      scenario: "You're using an agent",
+      blurb:
+        "One hook turns every tool call into a GuardEvent. Risky execs, curl | bash, non-allowlisted egress and credential reads are denied before they run — even in bypass mode.",
+      targets: [
+        { label: "Claude Code", href: `${GH}/openguardrails-instrumentation-claude-code` },
+        { label: "opencode", href: `${GH}/openguardrails-js` },
+        { label: "OpenClaw", href: `${GH}/openguardrails-js` },
+        { label: "Hermes", href: `${GH}/openguardrails-python` },
+      ],
+      cta: { label: "All agent integrations", href: "/docs/integrations/" },
     },
     {
-      title: "Sandboxes",
-      sub: "The enforcement backend for the sandbox altitude. One policy compiles to each.",
-      items: ["Anthropic srt", "NVIDIA OpenShell", "Docker / container"],
-      href: "/docs/integrations/hermes-srt/",
+      n: "02",
+      tag: "Sandbox",
+      where: "intercepts at real exec / network / files",
+      scenario: "You're running a sandbox",
+      blurb:
+        "Your one OGR policy compiles into the sandbox's own enforcement — OS-level on a laptop, container plus egress proxy for a fleet. The real syscall is blocked, not just the argv.",
+      targets: [
+        { label: "Anthropic srt · personal", href: "/docs/integrations/hermes-srt/" },
+        { label: "NVIDIA OpenShell · multi-tenant", href: "/docs/integrations/hermes-openshell/" },
+      ],
+      cta: { label: "Sandbox integrations", href: "/docs/integrations/hermes-srt/" },
     },
     {
-      title: "LLMs",
-      sub: "Your own model as the guardrail; provenance travels across every protocol.",
-      items: ["Your own model as judge", "MCP · tools · web", "any vendor detector"],
-      href: "/docs/concepts/event-verdict/",
+      n: "03",
+      tag: "Gateway",
+      badge: "New",
+      where: "intercepts at the LLM protocol",
+      scenario: "You're running an LLM gateway",
+      blurb:
+        "Terminate the wire protocol once — OpenAI & Anthropic, MCP, tools — and inspect or rewrite every request and response before the model sees it or the caller does.",
+      targets: [
+        { label: "OpenAI protocol", href: `${GH}/openguardrails-gateway` },
+        { label: "Anthropic protocol", href: `${GH}/openguardrails-gateway` },
+        { label: "MCP · tools", href: `${GH}/openguardrails-gateway` },
+      ],
+      cta: { label: "Gateway service", href: `${GH}/openguardrails-gateway` },
     },
   ];
   return (
     <section className="container-x py-16">
-      <p className="eyebrow mb-3">Integrate OGR</p>
-      <h2 className="text-3xl sm:text-4xl font-bold mb-4">One contract, every layer</h2>
+      <p className="eyebrow mb-3">Add guardrails to your stack</p>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">Start where you already are</h2>
       <p className="text-zinc-400 max-w-2xl mb-8">
-        OGR sits at the intersection of the agent, the sandbox, and the LLM. Integrate once
-        against the contract on any axis — the <span className="font-mono">GuardEvent → Verdict</span>{" "}
-        core never changes, only the binding does.
+        Three altitudes intercept one action. Come in from whatever you run — an agent, a sandbox,
+        or an LLM gateway — and enforce the one policy you own. Same{" "}
+        <span className="font-mono">GuardEvent → Verdict</span> underneath; only the binding changes.
       </p>
       <div className="grid md:grid-cols-3 gap-5">
-        {cols.map((c) => (
-          <a key={c.title} href={c.href} className="card p-7 group hover:border-accent/30 transition-colors">
-            <h3 className="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">{c.title}</h3>
-            <p className="text-sm text-zinc-400 leading-relaxed mb-4">{c.sub}</p>
-            <ul className="flex flex-wrap gap-2">
-              {c.items.map((it) => (
-                <li key={it} className="text-xs rounded-full px-2.5 py-1 bg-white/5 border border-white/10 text-zinc-300">
-                  {it}
+        {rows.map((r) => (
+          <div key={r.tag} className="card p-7 flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-mono text-zinc-600">{r.n}</span>
+              <span className="text-xs rounded-full px-2.5 py-0.5 bg-accent/10 border border-accent/20 text-accent">
+                {r.tag}{r.badge ? ` · ${r.badge}` : ""}
+              </span>
+            </div>
+            <h3 className="text-xl font-semibold mb-1">{r.scenario}</h3>
+            <p className="text-xs text-zinc-500 mb-3 font-mono">{r.where}</p>
+            <p className="text-sm text-zinc-400 leading-relaxed mb-5">{r.blurb}</p>
+            <ul className="flex flex-wrap gap-2 mb-6">
+              {r.targets.map((t) => (
+                <li key={t.label}>
+                  <a
+                    href={t.href}
+                    className="inline-block text-xs rounded-full px-2.5 py-1 bg-white/5 border border-white/10 text-zinc-300 hover:border-accent/40 hover:text-white transition-colors"
+                  >
+                    {t.label}
+                  </a>
                 </li>
               ))}
             </ul>
-          </a>
+            <a href={r.cta.href} className="mt-auto text-accent text-sm font-semibold hover:underline">
+              {r.cta.label} →
+            </a>
+          </div>
         ))}
       </div>
       <p className="mt-5 text-xs text-zinc-500">
-        Plus the detectors that compete behind one interface — security &amp; safety vendors, see{" "}
+        Tie all three together by <span className="font-mono">guard_id</span> for defense in depth — the
+        gateway, the hook and the sandbox correlate one decision. Detectors compete behind the same
+        interface; security &amp; safety vendors, see{" "}
         <a href="#leaderboard" className="text-accent hover:underline">the benchmark</a>.
       </p>
     </section>
@@ -272,15 +325,16 @@ function Leaderboard() {
       <div className="mt-5 grid sm:grid-cols-2 gap-4 text-sm">
         <div className="card p-4">
           <span className="text-accent font-semibold">Provenance wins on injection.</span>{" "}
-          <span className="text-zinc-400">The provenance-aware detectors score F1 0.889 on prompt
-          injection; config-rules manages 0.333 and keyword 0.400. Knowing the input was untrusted
+          <span className="text-zinc-400">The provenance-aware detectors score F1 0.900 on prompt
+          injection; config-rules manages 0.429 and keyword 0.421. Knowing the input was untrusted
           is what catches it.</span>
         </div>
         <div className="card p-4">
           <span className="text-accent font-semibold">Composition beats its parts.</span>{" "}
-          <span className="text-zinc-400">config⊕llm reaches macro 0.625 — above config (0.450) and
-          llm (0.406) alone. keyword tops macro on seed-v0 only because the seed is signature-heavy;
-          harder, obfuscated cases are next.</span>
+          <span className="text-zinc-400">config⊕llm reaches macro 0.588 — above config (0.438) and
+          llm (0.380) alone. keyword and block-all top macro on seed-v0 only because the seed is
+          small and signature-heavy; now that the obfuscated AMOS-style cases are in, closing the
+          recall gap on evasive commands is what&apos;s next.</span>
         </div>
       </div>
       <p className="mt-4 text-xs text-zinc-500">
@@ -513,7 +567,7 @@ export default function Page() {
       <DualEntry />
       <Problem />
       <HowItWorks />
-      <IntegrationSurface />
+      <Altitudes />
       <Leaderboard />
       <TwoSides />
       <Proof />
