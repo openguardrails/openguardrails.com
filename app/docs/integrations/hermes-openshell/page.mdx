@@ -35,7 +35,17 @@ only for policy-allowed endpoints. OGR is the **policy plane** above it.
 ## 1. Compile the policy into OpenShell artifacts
 
 ```bash
-python3 openguardrails-poc/integrations/sandbox-openshell/demo_openshell.py
+pip install openguardrails-instrumentation-hermes
+
+python - <<'PY'
+import json
+from openguardrails_instrumentation_hermes import bridge
+from openguardrails_instrumentation_hermes.sandbox import openshell
+rego, cfg = openshell.emit(bridge.get_runtime_policy())
+open("ogr_egress.rego", "w").write(rego)
+open("sandbox.config.json", "w").write(json.dumps(cfg, indent=2))
+print("wrote ogr_egress.rego + sandbox.config.json")
+PY
 ```
 
 From the **same** `policy.json`, this produces a deny-by-default egress policy the
@@ -57,11 +67,13 @@ limits, credential endpoints).
 
 ## 2. Verify the Rego
 
+The generated `ogr_egress.rego` is standard, deny-by-default OPA — evaluate it
+against sample hosts with `opa`:
+
 ```bash
-python3 demo_openshell.py
-#   api.github.com    -> allow=true
-#   evil.example.com  -> allow=false
-#   pypi.org          -> allow=true
+opa eval -d ogr_egress.rego -I 'data.ogr.egress.allow' <<<'{"host":"api.github.com"}'    # true
+opa eval -d ogr_egress.rego -I 'data.ogr.egress.allow' <<<'{"host":"evil.example.com"}'  # false
+opa eval -d ogr_egress.rego -I 'data.ogr.egress.allow' <<<'{"host":"pypi.org"}'          # true
 ```
 
 ## 3. Same model, a stricter policy
@@ -98,4 +110,5 @@ nor their workloads. Same model, different values:
   only for endpoints the OGR policy allows.
 
 Full source & hands-on README:
-[openguardrails-poc/integrations/sandbox-openshell](https://github.com/openguardrails/openguardrails-poc/tree/main/integrations/sandbox-openshell).
+[openguardrails-instrumentation-hermes](https://github.com/openguardrails/openguardrails-instrumentation-hermes)
+(the OpenShell adapter is [`sandbox/openshell.py`](https://github.com/openguardrails/openguardrails-instrumentation-hermes/blob/main/src/openguardrails_instrumentation_hermes/sandbox/openshell.py)).

@@ -9,6 +9,10 @@ The Hermes integration is a worked example, not a special case. Any agent framew
 connects to OGR the same way. If your framework exposes a tool/exec lifecycle, you
 can secure it.
 
+```bash
+pip install openguardrails   # the vendor-neutral reference runtime (zero deps)
+```
+
 ## The four steps
 
 ### 1. Find your interception points
@@ -29,7 +33,7 @@ Translate the hook's arguments into a `GuardEvent`. Mint a `guard_id` at the fir
 altitude and propagate it (a guard-context) to the exec point so they correlate.
 
 ```python
-from ogr import GuardEvent, Provenance
+from openguardrails import GuardEvent, Provenance
 
 ev = GuardEvent(
     kind="tool_call", observation_point="agent_hook",
@@ -45,9 +49,9 @@ ev = GuardEvent(
 Build one `Runtime` from your `policy.json` and ask it for a decision.
 
 ```python
-from ogr import Runtime
-from ogr.detectors.config_rules import ConfigRulesDetector
-from ogr.detectors.llm_judge import LLMJudgeDetector
+from openguardrails import Runtime
+from openguardrails.detectors.config_rules import ConfigRulesDetector
+from openguardrails.detectors.llm_judge import LLMJudgeDetector
 
 runtime = Runtime(
     detectors=[ConfigRulesDetector(policy["config_rules"]), LLMJudgeDetector()],
@@ -72,11 +76,11 @@ so a rephrased command can't bypass the intent check.
 
 The Hermes plugin is ~250 lines and demonstrates all four steps:
 
-- [`bridge.py`](https://github.com/openguardrails/openguardrails-poc/blob/main/integrations/hermes-plugin/bridge.py)
+- [`bridge.py`](https://github.com/openguardrails/openguardrails-instrumentation-hermes/blob/main/src/openguardrails_instrumentation_hermes/bridge.py)
   — hook callbacks ↔ GuardEvent, Runtime, provenance/taint, guard-context.
-- [`sandbox_guard.py`](https://github.com/openguardrails/openguardrails-poc/blob/main/integrations/hermes-plugin/sandbox_guard.py)
+- [`sandbox_guard.py`](https://github.com/openguardrails/openguardrails-instrumentation-hermes/blob/main/src/openguardrails_instrumentation_hermes/sandbox_guard.py)
   — wrap the exec chokepoint; run under srt when configured.
-- [`__init__.py`](https://github.com/openguardrails/openguardrails-poc/blob/main/integrations/hermes-plugin/__init__.py)
+- [`__init__.py`](https://github.com/openguardrails/openguardrails-instrumentation-hermes/blob/main/src/openguardrails_instrumentation_hermes/__init__.py)
   — bind the four hooks.
 
 ## Graceful degradation

@@ -18,11 +18,15 @@ suited to the deployment.
 ## 1. Install the OGR plugin
 
 OGR ships as a Hermes **plugin** — no proxy, no forking. Hermes already exposes the
-hooks OGR needs.
+hooks OGR needs. Install from PyPI, then point Hermes at the bundled plugin (it ships
+`plugin.yaml` + `register()`):
 
 ```bash
-git clone https://github.com/openguardrails/openguardrails-poc
-cp -r openguardrails-poc/integrations/hermes-plugin ~/.hermes/plugins/ogr-guard
+pip install openguardrails-instrumentation-hermes   # pulls in the openguardrails runtime
+
+# make Hermes discover the installed plugin
+ln -s "$(python -c 'import openguardrails_instrumentation_hermes as m, pathlib; print(pathlib.Path(m.__file__).parent)')" \
+  ~/.hermes/plugins/ogr-guard
 hermes plugins enable ogr-guard
 ```
 
@@ -52,7 +56,16 @@ denied by the OS — even if the agent rewrites `cat` into a `python` one-liner.
 
 ## 4. Configure policy — security as one file
 
-You never write sandbox code. You edit `~/.hermes/plugins/ogr-guard/policy.json`:
+You never write sandbox code. Copy the bundled default to an editable file and point
+`OGR_POLICY` at it (don't edit the copy inside site-packages):
+
+```bash
+python -c "import openguardrails_instrumentation_hermes as m, pathlib, shutil; \
+  shutil.copy(pathlib.Path(m.__file__).parent/'policy.json', 'ogr-policy.json')"
+export OGR_POLICY=$PWD/ogr-policy.json
+```
+
+Then edit `ogr-policy.json`:
 
 ```json
 {

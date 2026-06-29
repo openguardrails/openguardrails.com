@@ -84,13 +84,15 @@ reader verb — see why in [the Hermes findings](/docs/integrations/hermes-srt/)
 
 ## Where the policy lives
 
-- **Path:** `~/.hermes/plugins/ogr-guard/policy.json` (or any file via `OGR_POLICY=/path`).
-- **Precedence:** an explicit `OGR_POLICY` wins; otherwise the plugin's bundled
-  policy; otherwise the repo default.
+- **Path:** point `OGR_POLICY=/path/to/policy.json` at your own file. With no
+  override, the Hermes-tuned default that ships **inside the installed package** is
+  used (`python -c "import openguardrails_instrumentation_hermes as m, pathlib; print(pathlib.Path(m.__file__).parent/'policy.json')"`).
+- **Precedence:** an explicit `OGR_POLICY` wins; otherwise the package's bundled
+  default.
 
 ## Tips
 
-- Start from the [bundled policy](https://github.com/openguardrails/openguardrails-poc/blob/main/integrations/hermes-plugin/policy.json)
+- Start from the [bundled policy](https://github.com/openguardrails/openguardrails-instrumentation-hermes/blob/main/src/openguardrails_instrumentation_hermes/policy.json)
   and tighten `egress_allowlist` / `deny_read` for your project.
 - Prefer **resource-based** rules (match the path/host) over verb-based ones — they
   survive an agent rephrasing the command.

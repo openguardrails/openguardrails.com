@@ -14,6 +14,7 @@ function DocsHeader() {
         </a>
         <nav className="hidden md:flex items-center gap-7 text-sm text-zinc-400">
           <a href="/" className="hover:text-white transition-colors">Home</a>
+          <a href="/blog/" className="hover:text-white transition-colors">Blog</a>
           <a href={`${GH}/openguardrails-spec`} className="hover:text-white transition-colors">Spec</a>
           <a href={`${GH}/openguardrails-bench`} className="hover:text-white transition-colors">Benchmark</a>
           <a href={GH} className="hover:text-white transition-colors">GitHub</a>

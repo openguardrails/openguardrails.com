@@ -29,7 +29,11 @@ Hermes tool call ─▶ ogr-guard (pre_tool_call) ─▶ OGR Runtime ─▶ allo
 
 ```bash
 npm install -g @anthropic-ai/sandbox-runtime          # the `srt` CLI
-cp -r openguardrails-poc/integrations/hermes-plugin ~/.hermes/plugins/ogr-guard
+pip install openguardrails-instrumentation-hermes     # the OGR plugin + runtime
+
+# make Hermes discover the installed plugin (ships plugin.yaml + register())
+ln -s "$(python -c 'import openguardrails_instrumentation_hermes as m, pathlib; print(pathlib.Path(m.__file__).parent)')" \
+  ~/.hermes/plugins/ogr-guard
 hermes plugins enable ogr-guard
 ```
 
@@ -44,8 +48,14 @@ wraps each command as `srt --settings <file> "<command>"`.
 
 ## 3. Configure the policy
 
-You don't write sandbox code — you edit one JSON block in
-`~/.hermes/plugins/ogr-guard/policy.json`:
+You don't write sandbox code — you edit one JSON block. Copy the bundled default to
+an editable file and point `OGR_POLICY` at it:
+
+```bash
+python -c "import openguardrails_instrumentation_hermes as m, pathlib, shutil; \
+  shutil.copy(pathlib.Path(m.__file__).parent/'policy.json', 'ogr-policy.json')"
+export OGR_POLICY=$PWD/ogr-policy.json
+```
 
 ```json
 {
@@ -70,7 +80,12 @@ It compiles to srt settings:
 Preview the compiled settings without touching Hermes:
 
 ```bash
-python3 openguardrails-poc/integrations/sandbox-srt/demo_srt.py
+python - <<'PY'
+import json
+from openguardrails_instrumentation_hermes import bridge
+from openguardrails_instrumentation_hermes.sandbox import srt
+print(json.dumps(srt.policy_to_srt_settings(bridge.get_runtime_policy()), indent=2))
+PY
 ```
 
 ## 4. See it work
@@ -93,4 +108,5 @@ the shared deployment (no host filesystem, deny-by-default egress, hard per-tena
 limits) and swap the enforcement backend.
 
 Full source & hands-on README:
-[openguardrails-poc/integrations/sandbox-srt](https://github.com/openguardrails/openguardrails-poc/tree/main/integrations/sandbox-srt).
+[openguardrails-instrumentation-hermes](https://github.com/openguardrails/openguardrails-instrumentation-hermes)
+(the srt adapter is [`sandbox/srt.py`](https://github.com/openguardrails/openguardrails-instrumentation-hermes/blob/main/src/openguardrails_instrumentation_hermes/sandbox/srt.py)).
