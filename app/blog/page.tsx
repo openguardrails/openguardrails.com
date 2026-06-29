@@ -12,6 +12,34 @@ const POSTS = [
       "A real incident: a coding agent in bypass mode ran an obfuscated curl|bash from a phishing site and let in an AMOS Stealer variant. The full attack chain, where OpenGuardrails would have stopped it at the entry point — and, honestly, where it wouldn't (it's not antivirus).",
   },
   {
+    slug: "guarding-claude-code-with-openguardrails",
+    title: "Guarding Claude Code with OpenGuardrails (even in bypass mode)",
+    date: "2026-06-29",
+    blurb:
+      "Install one plugin and risky Claude Code tool calls are denied before they run — even in bypass mode, because the PreToolUse hook fires above the permission system. The one place the built-in classifier can't reach.",
+  },
+  {
+    slug: "guarding-an-opencode-agent-with-openguardrails",
+    title: "Guarding an opencode agent with OpenGuardrails",
+    date: "2026-06-29",
+    blurb:
+      "Guard opencode — a TypeScript coding agent — as a pure plugin on the tool.execute.before hook. The deny-and-continue model, your own model as the judge, and the upstream PR that turns require_approval into a first-class human ask.",
+  },
+  {
+    slug: "guarding-a-kilo-agent-with-openguardrails",
+    title: "From AI Gatekeeper to OpenGuardrails: guarding Kilo CLI",
+    date: "2026-06-29",
+    blurb:
+      "Kilo CLI had a bespoke LLM command-approval classifier. We routed it through OpenGuardrails — one GuardEvent → Verdict, composed detectors, reasoning-blind, your own model as judge — and deleted the one-off backend enum.",
+  },
+  {
+    slug: "guarding-an-openclaw-agent-with-openguardrails",
+    title: "Guarding an OpenClaw agent with OpenGuardrails",
+    date: "2026-06-29",
+    blurb:
+      "Guard OpenClaw as a pure plugin on its before_tool_call hook — with a first-class human-approval gate. block AND require_approval both work natively, no core change. Published and smoke-verified.",
+  },
+  {
     slug: "guarding-a-hermes-agent-with-openguardrails",
     title: "Guarding a Hermes agent with OpenGuardrails",
     date: "2026-06-28",

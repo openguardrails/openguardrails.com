@@ -174,6 +174,59 @@ function HowItWorks() {
   );
 }
 
+function IntegrationSurface() {
+  const cols: { title: string; sub: string; items: string[]; href: string }[] = [
+    {
+      title: "Agents",
+      sub: "Install OGR once — one hook turns every tool call into a GuardEvent.",
+      items: ["Claude Code", "opencode", "Kilo CLI", "Hermes", "OpenClaw"],
+      href: "/docs/integrations/",
+    },
+    {
+      title: "Sandboxes",
+      sub: "The enforcement backend for the sandbox altitude. One policy compiles to each.",
+      items: ["Anthropic srt", "NVIDIA OpenShell", "Docker / container"],
+      href: "/docs/integrations/hermes-srt/",
+    },
+    {
+      title: "LLMs",
+      sub: "Your own model as the guardrail; provenance travels across every protocol.",
+      items: ["Your own model as judge", "MCP · tools · web", "any vendor detector"],
+      href: "/docs/concepts/event-verdict/",
+    },
+  ];
+  return (
+    <section className="container-x py-16">
+      <p className="eyebrow mb-3">Integrate OGR</p>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">One contract, every layer</h2>
+      <p className="text-zinc-400 max-w-2xl mb-8">
+        OGR sits at the intersection of the agent, the sandbox, and the LLM. Integrate once
+        against the contract on any axis — the <span className="font-mono">GuardEvent → Verdict</span>{" "}
+        core never changes, only the binding does.
+      </p>
+      <div className="grid md:grid-cols-3 gap-5">
+        {cols.map((c) => (
+          <a key={c.title} href={c.href} className="card p-7 group hover:border-accent/30 transition-colors">
+            <h3 className="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">{c.title}</h3>
+            <p className="text-sm text-zinc-400 leading-relaxed mb-4">{c.sub}</p>
+            <ul className="flex flex-wrap gap-2">
+              {c.items.map((it) => (
+                <li key={it} className="text-xs rounded-full px-2.5 py-1 bg-white/5 border border-white/10 text-zinc-300">
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </a>
+        ))}
+      </div>
+      <p className="mt-5 text-xs text-zinc-500">
+        Plus the detectors that compete behind one interface — security &amp; safety vendors, see{" "}
+        <a href="#leaderboard" className="text-accent hover:underline">the benchmark</a>.
+      </p>
+    </section>
+  );
+}
+
 function LbRow({ r }: { r: Row }) {
   const top = r.detector.startsWith("ogr-compose");
   const pending = r.macro === null;
@@ -460,6 +513,7 @@ export default function Page() {
       <DualEntry />
       <Problem />
       <HowItWorks />
+      <IntegrationSurface />
       <Leaderboard />
       <TwoSides />
       <Proof />
