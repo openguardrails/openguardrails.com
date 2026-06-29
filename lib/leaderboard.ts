@@ -16,10 +16,10 @@ export type Row = {
 
 // macro-F1 ranked, exactly as emitted by the harness.
 export const REFERENCE_ROWS: Row[] = [
+  { detector: "ogr-compose (config⊕llm)", type: "hybrid", injection: 0.9, malcmd: 0.8, exfil: 0.462, secret: 0.4, macro: 0.641 },
   { detector: "keyword-baseline", type: "config", injection: 0.421, malcmd: 0.769, exfil: 0.667, secret: 0.588, macro: 0.611, note: "signature-only; high FP, injection F1 just 0.42" },
   { detector: "block-all", type: "baseline", injection: 0.611, malcmd: 0.632, exfil: 0.588, secret: 0.533, macro: 0.591, note: "blocks everything; flattered by a small seed" },
-  { detector: "ogr-compose (config⊕llm)", type: "hybrid", injection: 0.9, malcmd: 0.588, exfil: 0.462, secret: 0.4, macro: 0.588 },
-  { detector: "config-rules", type: "config", injection: 0.429, malcmd: 0.588, exfil: 0.333, secret: 0.4, macro: 0.438 },
+  { detector: "config-rules", type: "config", injection: 0.429, malcmd: 0.8, exfil: 0.333, secret: 0.4, macro: 0.491 },
   { detector: "llm-judge (provenance-aware)", type: "model", injection: 0.9, malcmd: 0.286, exfil: 0.333, secret: 0.0, macro: 0.38 },
   { detector: "allow-all", type: "baseline", injection: 0.0, malcmd: 0.0, exfil: 0.0, secret: 0.0, macro: 0.0 },
 ];

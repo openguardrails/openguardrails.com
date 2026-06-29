@@ -43,6 +43,20 @@
         "category": "security.outbound_side_effect", "domain": "security",
         "decision": "require_approval", "score": 0.6,
         "why": "outbound side effect — hold for operator approval unless explicitly allowed"
+      },
+      {
+        "id": "remote-fetch-eval",
+        "regex": "\\$\\(\\s*(curl|wget)\\b",
+        "category": "security.malicious_command", "domain": "security",
+        "decision": "require_approval", "score": 0.85,
+        "why": "remote fetch executed via command substitution / eval"
+      },
+      {
+        "id": "download-then-exec",
+        "regex": "(curl|wget)\\b.*&&.*chmod\\s+\\+?x",
+        "category": "security.malicious_command", "domain": "security",
+        "decision": "require_approval", "score": 0.8,
+        "why": "download followed by chmod +x and execution — sidesteps pipe-to-shell"
       }
     ]
   }
