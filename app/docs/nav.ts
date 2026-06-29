@@ -24,6 +24,7 @@ export const DOC_NAV: DocSection[] = [
     title: "Integrations",
     links: [
       { label: "Overview", href: "/docs/integrations/" },
+      { label: "Claude Code", href: "/docs/integrations/claude-code/" },
       { label: "Hermes + srt (personal)", href: "/docs/integrations/hermes-srt/" },
       { label: "Hermes + OpenShell (team)", href: "/docs/integrations/hermes-openshell/" },
     ],
