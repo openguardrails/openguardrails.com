@@ -353,8 +353,8 @@ function TwoSides() {
           Add one hook, get every vendor&apos;s coverage. Compose with deny-wins / quorum.
           One policy across all your agents.
         </p>
-        <a href={`${GH}/openguardrails-poc`} className="text-accent text-sm font-semibold hover:underline">
-          Runnable PoC: Hermes agent + sandbox →
+        <a href={`${GH}/openguardrails-examples`} className="text-accent text-sm font-semibold hover:underline">
+          Runnable example: Hermes agent + sandbox →
         </a>
       </div>
       <div className="card p-8">
@@ -424,8 +424,8 @@ D. bash deploy.sh → sandbox sees AWS_SECRET_ACCESS_KEY ⛔ require_approval
       </p>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
-        <a href={`${GH}/openguardrails-poc`} className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
-          Run the PoC →
+        <a href={`${GH}/openguardrails-examples`} className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
+          Run the example →
         </a>
         <a href="/docs/integrations/" className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
           Explore integrations
@@ -461,7 +461,7 @@ function Footer() {
             <ul className="space-y-2 text-zinc-500">
               <li><a className="hover:text-white" href={`${GH}/openguardrails-spec`}>Spec</a></li>
               <li><a className="hover:text-white" href={`${GH}/openguardrails-bench`}>Benchmark</a></li>
-              <li><a className="hover:text-white" href={`${GH}/openguardrails-poc`}>PoC</a></li>
+              <li><a className="hover:text-white" href={`${GH}/openguardrails-examples`}>Examples</a></li>
             </ul>
           </div>
           <div>

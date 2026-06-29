@@ -184,8 +184,8 @@ export default function AgentPage() {
           <a href={`${GH}/openguardrails-spec`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
             Read the spec
           </a>
-          <a href={`${GH}/openguardrails-poc`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
-            Runnable PoC
+          <a href={`${GH}/openguardrails-examples`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
+            Runnable example
           </a>
         </div>
       </section>
