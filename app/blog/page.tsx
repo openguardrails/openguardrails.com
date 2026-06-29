@@ -5,6 +5,13 @@ export const metadata = {
 
 const POSTS = [
   {
+    slug: "when-your-coding-agent-installs-malware",
+    title: "When your coding agent installs the malware",
+    date: "2026-06-29",
+    blurb:
+      "A real incident: a coding agent in bypass mode ran an obfuscated curl|bash from a phishing site and let in an AMOS Stealer variant. The full attack chain, where OpenGuardrails would have stopped it at the entry point — and, honestly, where it wouldn't (it's not antivirus).",
+  },
+  {
     slug: "guarding-a-hermes-agent-with-openguardrails",
     title: "Guarding a Hermes agent with OpenGuardrails",
     date: "2026-06-28",
