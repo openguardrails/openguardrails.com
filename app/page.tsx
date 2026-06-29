@@ -4,6 +4,7 @@ const GH = "https://github.com/openguardrails";
 
 const NAV = [
   { label: "Docs", href: "/docs/" },
+  { label: "For agents", href: "/agent/" },
   { label: "Integrations", href: "/docs/integrations/" },
   { label: "Blog", href: "/blog/" },
   { label: "Spec", href: `${GH}/openguardrails-spec` },
@@ -67,6 +68,57 @@ function Hero() {
       <p className="mt-8 text-xs text-zinc-500 tracking-wide">
         Apache-2.0 · Foundation-neutral governance · Detectors compete, you compose
       </p>
+    </section>
+  );
+}
+
+function DualEntry() {
+  return (
+    <section className="container-x py-16">
+      <p className="eyebrow mb-3">Built to be used by agents</p>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">Two ways in</h2>
+      <p className="text-zinc-400 max-w-2xl mb-8">
+        OGR&apos;s first user is an agent, not a person. A human decides to trust it; an agent
+        installs it, writes the policy, and runs under it. Pick your entrance.
+      </p>
+      <div className="grid md:grid-cols-2 gap-5">
+        <div className="card p-8">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-lg">🧑</span>
+            <h3 className="text-xl font-semibold">I&apos;m a human</h3>
+          </div>
+          <p className="text-zinc-400 leading-relaxed mb-5">
+            You&apos;re deciding whether to adopt OGR. See why it exists, read the standard, and
+            check how vendors score on the neutral benchmark.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a href="/docs/" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition">
+              Read the docs
+            </a>
+            <a href="#leaderboard" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition">
+              See the leaderboard
+            </a>
+          </div>
+        </div>
+        <div className="card p-8 border-accent/25">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-lg">🤖</span>
+            <h3 className="text-xl font-semibold">I&apos;m an agent</h3>
+          </div>
+          <p className="text-zinc-400 leading-relaxed mb-5">
+            You were asked to add guardrails. Self-install OGR, draft a policy, confirm it with
+            your operator, then enforce it on yourself or the agents you orchestrate.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a href="/agent/" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition">
+              Agent guide →
+            </a>
+            <a href="/llms.txt" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition font-mono">
+              /llms.txt
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -393,6 +445,7 @@ export default function Page() {
     <main>
       <Header />
       <Hero />
+      <DualEntry />
       <Problem />
       <HowItWorks />
       <Leaderboard />
