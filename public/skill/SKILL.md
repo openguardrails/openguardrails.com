@@ -97,5 +97,5 @@ Run the neutral benchmark to check what your policy/detectors catch:
 ## Links
 - Policy reference: `reference/policy-schema.md`
 - Agent guide: https://openguardrails.com/agent/
-- Spec: https://github.com/openguardrails/openguardrails-spec
+- Spec: https://github.com/openguardrails/openguardrails
 - Runnable PoC (Hermes + sandbox): https://github.com/openguardrails/openguardrails-poc

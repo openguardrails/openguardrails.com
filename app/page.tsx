@@ -7,7 +7,7 @@ const NAV = [
   { label: "For agents", href: "/agent/" },
   { label: "Integrations", href: "/docs/integrations/" },
   { label: "Blog", href: "/blog/" },
-  { label: "Spec", href: `${GH}/openguardrails-spec` },
+  { label: "Spec", href: `${GH}/openguardrails` },
   { label: "Benchmark", href: `${GH}/openguardrails-bench` },
   { label: "GitHub", href: GH },
 ];
@@ -32,7 +32,7 @@ function Header() {
             </a>
           ))}
         </nav>
-        <a href={`${GH}/openguardrails-spec`} className="text-sm font-semibold rounded-lg px-4 py-2 bg-accent/15 text-accent border border-accent/20 hover:bg-accent/25 transition">
+        <a href={`${GH}/openguardrails`} className="text-sm font-semibold rounded-lg px-4 py-2 bg-accent/15 text-accent border border-accent/20 hover:bg-accent/25 transition">
           Read the spec
         </a>
       </div>
@@ -55,7 +55,7 @@ function Hero() {
         one policy you own — across every agent you run.
       </p>
       <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-        <a href={`${GH}/openguardrails-spec`} className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
+        <a href={`${GH}/openguardrails`} className="rounded-lg px-5 py-3 bg-accent text-ink font-semibold hover:bg-blue-300 transition">
           Read the spec
         </a>
         <a href="#leaderboard" className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
@@ -363,7 +363,7 @@ function TwoSides() {
           Implement one method — <span className="font-mono text-zinc-200">evaluate(GuardEvent) → Verdict</span> —
           and get ranked distribution to every agent. Compete on detection, not integration.
         </p>
-        <a href={`${GH}/openguardrails-spec`} className="text-accent text-sm font-semibold hover:underline">
+        <a href={`${GH}/openguardrails`} className="text-accent text-sm font-semibold hover:underline">
           Read the spec →
         </a>
       </div>
@@ -459,7 +459,7 @@ function Footer() {
           <div>
             <div className="text-zinc-300 font-semibold mb-3">Standard</div>
             <ul className="space-y-2 text-zinc-500">
-              <li><a className="hover:text-white" href={`${GH}/openguardrails-spec`}>Spec</a></li>
+              <li><a className="hover:text-white" href={`${GH}/openguardrails`}>Spec</a></li>
               <li><a className="hover:text-white" href={`${GH}/openguardrails-bench`}>Benchmark</a></li>
               <li><a className="hover:text-white" href={`${GH}/openguardrails-examples`}>Examples</a></li>
             </ul>

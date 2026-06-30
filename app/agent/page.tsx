@@ -51,7 +51,7 @@ function TopBar() {
         <nav className="flex items-center gap-7 text-sm text-zinc-400">
           <a href="/docs/" className="hover:text-white transition-colors">Docs</a>
           <a href="/llms.txt" className="hover:text-white transition-colors font-mono">/llms.txt</a>
-          <a href={`${GH}/openguardrails-spec`} className="hover:text-white transition-colors">Spec</a>
+          <a href={`${GH}/openguardrails`} className="hover:text-white transition-colors">Spec</a>
         </nav>
       </div>
     </header>
@@ -181,7 +181,7 @@ export default function AgentPage() {
           <a href="/docs/configuring-policy/" className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
             Policy reference
           </a>
-          <a href={`${GH}/openguardrails-spec`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
+          <a href={`${GH}/openguardrails`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">
             Read the spec
           </a>
           <a href={`${GH}/openguardrails-examples`} className="rounded-lg px-5 py-3 border border-white/15 font-semibold hover:bg-white/5 transition">

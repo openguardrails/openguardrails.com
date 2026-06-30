@@ -6,7 +6,7 @@ export const metadata = {
 # GuardEvent & Verdict
 
 OGR has two core wire types. Both are JSON, both have published
-[JSON Schemas](https://github.com/openguardrails/openguardrails-spec/tree/main/schema).
+[JSON Schemas](https://github.com/openguardrails/openguardrails/tree/main/schema).
 
 ## GuardEvent — what happened
 
@@ -56,7 +56,7 @@ A `Verdict` is one detector's decision on a `GuardEvent`.
 
 The `decision` is one of `allow`, `block`, `require_approval`, `modify`, `redact`.
 `categories` reference the OGR
-[risk taxonomy](https://github.com/openguardrails/openguardrails-spec/blob/main/specification/taxonomy.md)
+[risk taxonomy](https://github.com/openguardrails/openguardrails/blob/main/specification/taxonomy.md)
 (`safety.*` and `security.*`), and `provider` attributes the verdict so multiple
 detectors can be **[composed](/docs/concepts/composition/)**.
 

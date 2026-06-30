@@ -78,5 +78,5 @@ Each rule: `id`, `regex`, `category`, `domain`, `decision`
 - `OGR_SANDBOX=srt` (personal) enables OS-level enforcement; multi-tenant uses the
   container backend.
 
-Full machine schema: https://github.com/openguardrails/openguardrails-spec
+Full machine schema: https://github.com/openguardrails/openguardrails
 (`schema/guard-event.schema.json`, `schema/verdict.schema.json`).

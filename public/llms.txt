@@ -97,6 +97,6 @@ Example (Hermes):
 - Agent guide (human-readable): https://openguardrails.com/agent/
 - Docs: https://openguardrails.com/docs/
 - Getting started: https://openguardrails.com/docs/getting-started/
-- Spec: https://github.com/openguardrails/openguardrails-spec
+- Spec: https://github.com/openguardrails/openguardrails
 - Benchmark: https://github.com/openguardrails/openguardrails-bench
 - Runnable PoC (Hermes + sandbox): https://github.com/openguardrails/openguardrails-poc
