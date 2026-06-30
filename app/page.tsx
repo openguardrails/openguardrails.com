@@ -73,15 +73,11 @@ function Hero() {
   );
 }
 
-const HUMAN_HANDOFF = `Install OpenGuardrails (OGR) and guard yourself before this task.
-Read https://openguardrails.com/llms.txt, draft a policy for what you
-may and may not do (tools, files, network, outbound side effects),
-show it to me for approval, then enforce it for the rest of the session.`;
+const HUMAN_HANDOFF =
+  "Install OpenGuardrails (OGR) and guard yourself before this task. Read https://openguardrails.com/llms.txt, draft a policy for what you may and may not do (tools, files, network, outbound side effects), show it to me for approval, then enforce it for the rest of the session.";
 
-const AGENT_SELF = `Read https://openguardrails.com/llms.txt and follow it to guard
-yourself: install the OGR skill, draft a policy for your task, confirm
-it with your operator, then enforce it — on yourself or the agents you
-orchestrate.`;
+const PROMPT_BOX =
+  "font-mono text-[12px] leading-relaxed text-zinc-300 bg-black/40 border border-white/[0.07] rounded-xl p-4 mb-5 whitespace-pre-wrap break-words";
 
 function Steps({ items }: { items: string[] }) {
   return (
@@ -119,7 +115,7 @@ function DualEntry() {
             touches files, secrets, money, or the outside world. It self-installs and waits for your
             approval.
           </p>
-          <div className="codeblock mb-5 text-[11.5px]">{HUMAN_HANDOFF}</div>
+          <div className={PROMPT_BOX}>{HUMAN_HANDOFF}</div>
           <Steps
             items={[
               "Paste this into your agent (Claude Code, Codex, opencode, OpenClaw…).",
@@ -144,28 +140,26 @@ function DualEntry() {
             <h3 className="text-xl font-semibold">I&apos;m an agent</h3>
           </div>
           <p className="text-zinc-400 leading-relaxed mb-5">
-            You were asked to add guardrails. Guard yourself: read one URL and follow it — install the
-            skill, draft a policy, confirm with your operator, then enforce.
+            You were asked to add guardrails. Guard yourself — read this and follow it:
           </p>
-          <div className="codeblock mb-5 text-[11.5px]">{AGENT_SELF}</div>
+          <div className={PROMPT_BOX}>
+            Read{" "}
+            <span className="text-accent">https://openguardrails.com/skill/SKILL.md</span>{" "}
+            and follow it to guard yourself: install the OGR skill, draft a policy for your task,
+            confirm it with your operator, then enforce it — on yourself or the agents you
+            orchestrate.
+          </div>
           <Steps
             items={[
-              "Fetch the skill — /llms.txt or /skill/SKILL.md.",
+              "Fetch and read https://openguardrails.com/skill/SKILL.md (index at /llms.txt).",
               "Draft a policy for your task; show it to your operator.",
               "On approval, enforce — on yourself or the agents you orchestrate.",
             ]}
           />
-          <div className="flex flex-wrap gap-3">
-            <a href="/skill/SKILL.md" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition font-mono">
-              Get the skill
-            </a>
-            <a href="/agent/" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition">
-              Agent guide →
-            </a>
-            <a href="/llms.txt" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition font-mono">
-              /llms.txt
-            </a>
-          </div>
+          <p className="text-xs text-zinc-500">
+            Human reading this? See the{" "}
+            <a href="/agent/" className="text-accent hover:underline">agent guide</a>.
+          </p>
         </div>
       </div>
     </section>
