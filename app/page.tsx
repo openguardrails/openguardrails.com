@@ -3,6 +3,7 @@ import { REFERENCE_ROWS, PENDING_VENDORS, SEED, fmt, type Row } from "@/lib/lead
 const GH = "https://github.com/openguardrails";
 
 const NAV = [
+  { label: "Mission", href: "/mission/" },
   { label: "Docs", href: "/docs/" },
   { label: "For agents", href: "/agent/" },
   { label: "Integrations", href: "/docs/integrations/" },
@@ -467,6 +468,8 @@ function Footer() {
           <div>
             <div className="text-zinc-300 font-semibold mb-3">Community</div>
             <ul className="space-y-2 text-zinc-500">
+              <li><a className="hover:text-white" href="/mission/">Mission</a></li>
+              <li><a className="hover:text-white" href="/donate/">Donate</a></li>
               <li><a className="hover:text-white" href={GH}>GitHub</a></li>
               <li><a className="hover:text-white" href="https://discord.gg/FfSXd64pGJ">Discord</a></li>
               <li><a className="hover:text-white" href="https://t.me/openguardrailscommunity">Telegram</a></li>
@@ -476,7 +479,7 @@ function Footer() {
         </div>
       </div>
       <div className="container-x mt-10 pt-6 border-t border-white/[0.06] text-xs text-zinc-600">
-        © 2026 OpenGuardrails Inc. · 30 North Gould Street, STE R, Sheridan, WY 82801 · Apache-2.0 · The protocol is neutral; the benchmark is a referee, not a contestant.
+        © 2026 OpenGuardrails.com · 30 North Gould Street, STE R, Sheridan, WY 82801 · Apache-2.0 · The protocol is neutral; the benchmark is a referee, not a contestant.
       </div>
     </footer>
   );
