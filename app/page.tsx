@@ -73,6 +73,31 @@ function Hero() {
   );
 }
 
+const HUMAN_HANDOFF = `Install OpenGuardrails (OGR) and guard yourself before this task.
+Read https://openguardrails.com/llms.txt, draft a policy for what you
+may and may not do (tools, files, network, outbound side effects),
+show it to me for approval, then enforce it for the rest of the session.`;
+
+const AGENT_SELF = `Read https://openguardrails.com/llms.txt and follow it to guard
+yourself: install the OGR skill, draft a policy for your task, confirm
+it with your operator, then enforce it — on yourself or the agents you
+orchestrate.`;
+
+function Steps({ items }: { items: string[] }) {
+  return (
+    <ol className="space-y-2.5 mb-5">
+      {items.map((s, i) => (
+        <li key={i} className="flex gap-3 text-sm text-zinc-300 leading-relaxed">
+          <span className="shrink-0 w-5 h-5 rounded-full bg-accent/15 text-accent text-xs font-bold flex items-center justify-center mt-0.5">
+            {i + 1}
+          </span>
+          <span>{s}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function DualEntry() {
   return (
     <section className="container-x py-16">
@@ -83,17 +108,27 @@ function DualEntry() {
         installs it, writes the policy, and runs under it. Pick your entrance.
       </p>
       <div className="grid md:grid-cols-2 gap-5">
+        {/* Human → hand it to your agent */}
         <div className="card p-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-lg">🧑</span>
             <h3 className="text-xl font-semibold">I&apos;m a human</h3>
           </div>
           <p className="text-zinc-400 leading-relaxed mb-5">
-            You&apos;re deciding whether to adopt OGR. See why it exists, read the standard, and
-            check how vendors score on the neutral benchmark.
+            Don&apos;t wire OGR in by hand — hand it to your agent. Paste this before any task that
+            touches files, secrets, money, or the outside world. It self-installs and waits for your
+            approval.
           </p>
+          <div className="codeblock mb-5 text-[11.5px]">{HUMAN_HANDOFF}</div>
+          <Steps
+            items={[
+              "Paste this into your agent (Claude Code, Codex, opencode, OpenClaw…).",
+              "It drafts a policy and shows you exactly what it may and may not do.",
+              "You approve — then OGR enforces it on every action, including the agent's own.",
+            ]}
+          />
           <div className="flex flex-wrap gap-3">
-            <a href="/docs/" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition">
+            <a href="/docs/" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition">
               Read the docs
             </a>
             <a href="#leaderboard" className="rounded-lg px-4 py-2 border border-white/15 text-sm font-semibold hover:bg-white/5 transition">
@@ -101,15 +136,25 @@ function DualEntry() {
             </a>
           </div>
         </div>
+
+        {/* Agent → guard yourself */}
         <div className="card p-8 border-accent/25">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-lg">🤖</span>
             <h3 className="text-xl font-semibold">I&apos;m an agent</h3>
           </div>
           <p className="text-zinc-400 leading-relaxed mb-5">
-            You were asked to add guardrails. Install the OGR skill, draft a policy, confirm it with
-            your operator, then enforce it on yourself or the agents you orchestrate.
+            You were asked to add guardrails. Guard yourself: read one URL and follow it — install the
+            skill, draft a policy, confirm with your operator, then enforce.
           </p>
+          <div className="codeblock mb-5 text-[11.5px]">{AGENT_SELF}</div>
+          <Steps
+            items={[
+              "Fetch the skill — /llms.txt or /skill/SKILL.md.",
+              "Draft a policy for your task; show it to your operator.",
+              "On approval, enforce — on yourself or the agents you orchestrate.",
+            ]}
+          />
           <div className="flex flex-wrap gap-3">
             <a href="/skill/SKILL.md" className="rounded-lg px-4 py-2 bg-accent text-ink text-sm font-semibold hover:bg-blue-300 transition font-mono">
               Get the skill
